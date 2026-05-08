@@ -1,4 +1,4 @@
-# ─────────────────────────────────────────────────────────
+
 # BrightEdge Crawler — production image
 #
 # Multi-stage build:
@@ -7,9 +7,8 @@
 #
 # This keeps the final image lean and avoids the 30s model
 # download on first request in production.
-# ─────────────────────────────────────────────────────────
 
-# ───── Stage 1: builder ──────────────────────────────────
+# Stage 1: builder
 FROM python:3.11-slim AS builder
 
 # System deps for lxml (extruct/bs4 dependency).

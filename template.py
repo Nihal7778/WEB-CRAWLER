@@ -35,7 +35,7 @@ list_of_files = [
     "tests/fixtures/.gitkeep",
     "docs/DESIGN.md",     # Part 2 requirement
     "docs/POC_PLAN.md",   # Part 3 requirement
-    "Dockerfile",
+    "deploy/Dockerfile",
     ".dockerignore",
     "requirements.txt",
     ".env.example",
