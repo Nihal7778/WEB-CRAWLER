@@ -108,7 +108,7 @@ async def crawl(request: CrawlRequest) -> CrawlResponse:
 
     logger.info("crawl start", extra={"url": requested_url})
 
-    # ─── Stage 1: Fetch ───────────────────────────────────────
+    # Stage 1: Fetch 
     fetch_result = fetch_html(requested_url)
 
     if not fetch_result.ok:
@@ -138,7 +138,7 @@ async def crawl(request: CrawlRequest) -> CrawlResponse:
     # Stage 3: Extract
     metadata, content, ext_errors = extract_page(html, url=final_url)
 
-    # ─── Stage 4: Classify (skip if request opted out) ────────
+    # Stage 4: Classify (skip if request opted out)
     topics = []
     cls_errors: list[str] = []
     if request.classify and not bot_check.is_bot_page:
@@ -151,7 +151,7 @@ async def crawl(request: CrawlRequest) -> CrawlResponse:
             json_ld=metadata.json_ld,
         )
 
-    # ─── Stage 5: Assemble response ───────────────────────────
+    # Stage 5: Assemble response 
     # Determine status from what actually happened.
     if bot_check.is_bot_page:
         status = CrawlStatus.PARTIAL

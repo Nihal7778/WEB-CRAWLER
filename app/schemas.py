@@ -22,9 +22,8 @@ from pydantic import BaseModel, Field, HttpUrl, field_validator
 SCHEMA_VERSION = 1
 
 
-# ─────────────────────────────────────────────────────────────────────
 # Enums — closed sets of valid values
-# ─────────────────────────────────────────────────────────────────────
+
 
 class CrawlStatus(str, Enum):
     """Outcome of a crawl request.
@@ -53,9 +52,8 @@ class TopicSource(str, Enum):
     LLM = "llm"
 
 
-# ─────────────────────────────────────────────────────────────────────
+
 # Request model
-# ─────────────────────────────────────────────────────────────────────
 
 class CrawlRequest(BaseModel):
     """POST /crawl request body."""
@@ -72,9 +70,7 @@ class CrawlRequest(BaseModel):
     )
 
 
-# ─────────────────────────────────────────────────────────────────────
 # Sub-models — composed into CrawlResponse
-# ─────────────────────────────────────────────────────────────────────
 
 class PageMetadata(BaseModel):
     """Structured metadata extracted from the page.
@@ -85,8 +81,8 @@ class PageMetadata(BaseModel):
     title: Optional[str] = None
     description: Optional[str] = None
     author: Optional[str] = None
-    published_date: Optional[str] = None  # str not datetime — formats vary wildly
-    language: Optional[str] = None        # ISO 639-1 code if detected
+    published_date: Optional[str] = None  
+    language: Optional[str] = None       
     canonical_url: Optional[str] = None
 
     # Structured data from the page (often richer than meta tags)
@@ -119,9 +115,9 @@ class Topic(BaseModel):
     source: TopicSource
 
 
-# ─────────────────────────────────────────────────────────────────────
+
 # Top-level response model — the contract
-# ─────────────────────────────────────────────────────────────────────
+
 
 class CrawlResponse(BaseModel):
     """Unified response for POST /crawl.
@@ -191,9 +187,8 @@ class CrawlResponse(BaseModel):
     }
 
 
-# ─────────────────────────────────────────────────────────────────────
+
 # Health check response (used by /health endpoint in Phase 3)
-# ─────────────────────────────────────────────────────────────────────
 
 class HealthResponse(BaseModel):
     status: str = "ok"

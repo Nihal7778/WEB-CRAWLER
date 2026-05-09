@@ -34,7 +34,7 @@ RUN python -c "from sentence_transformers import SentenceTransformer; \
     SentenceTransformer('all-MiniLM-L6-v2')"
 
 
-# ───── Stage 2: runtime ──────────────────────────────────
+#  Stage 2: runtime 
 FROM python:3.11-slim AS runtime
 
 # Runtime libs for lxml (smaller than dev versions used in builder).

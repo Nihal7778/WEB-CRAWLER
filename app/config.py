@@ -26,37 +26,31 @@ except ImportError:
     pass
 
 
-# ────────────────────────────────────────────────────────
-# Service identity
-# ────────────────────────────────────────────────────────
+
+# service identity
 SERVICE_NAME = "brightedge-crawler"
 SERVICE_VERSION = "0.1.0"
 
-# ────────────────────────────────────────────────────────
-# Server
-# ────────────────────────────────────────────────────────
+
+# server
 HOST = os.getenv("HOST", "0.0.0.0")
 PORT = int(os.getenv("PORT", "8000"))
 
-# ────────────────────────────────────────────────────────
 # Environment
-# ────────────────────────────────────────────────────────
 # "dev" | "prod" — controls log format and a few defaults
 ENV = os.getenv("ENV", "dev").lower()
 IS_PROD = ENV == "prod"
 
-# ────────────────────────────────────────────────────────
+
 # Logging
-# ────────────────────────────────────────────────────────
 # Levels: DEBUG, INFO, WARNING, ERROR
 LOG_LEVEL = os.getenv("LOG_LEVEL", "INFO").upper()
 
 # In dev: human-readable. In prod: JSON for log aggregators.
 LOG_FORMAT = os.getenv("LOG_FORMAT", "json" if IS_PROD else "console").lower()
 
-# ────────────────────────────────────────────────────────
+
 # Crawler behavior
-# ────────────────────────────────────────────────────────
 # Max characters of body text to return in API response.
 # Full body kept internally for classification; this caps response size.
 MAX_BODY_CHARS_RESPONSE = int(os.getenv("MAX_BODY_CHARS_RESPONSE", "10000"))

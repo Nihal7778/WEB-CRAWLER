@@ -5,6 +5,18 @@ import logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 list_of_files = [
+    "localstack/docker-compose.yml",
+    "localstack/init/01-create-resources.sh",
+    "localstack/init/01-create-resources.sh",
+    "poc/__init__.py",
+    "poc/aws_clients.py",
+    "poc/storage.py",
+    "poc/queue_client.py",
+    "poc/ingester.py",
+    "poc/worker.py",
+    "poc/lookup.py",
+    "poc/run_pipeline.py",
+    "poc/urls.txt",
     "app/__init__.py",
     "app/main.py",        # FastAPI entry point
     "app/fetcher.py",     # Network layer logic
@@ -41,7 +53,8 @@ list_of_files = [
     ".env.example",
     ".gitignore",
     "LICENSE",
-    "README.md"
+    "README.md",
+    "images"
 ]
 
 for file_path in list_of_files:
