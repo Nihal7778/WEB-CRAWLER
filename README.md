@@ -273,7 +273,7 @@ development:
 | Tool | Usage |
 |---|---|
 | **Claude (Anthropic)** | Architecture design, ideas generation, development assistance, documentation |
-| **Qodo** |  assisted with test validation during development |
+| **Qodo** |  assisted with test validation during development,code reviews |
 
 All architectural decisions, component selection rationale, and
 tradeoff analysis were reviewed and validated by the developer.
