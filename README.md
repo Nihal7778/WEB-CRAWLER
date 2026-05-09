@@ -5,6 +5,7 @@ structured metadata, and classifies the page into human-readable topics.
 
 **Live demo:** https://web-crawler-pn8j.onrender.com/docs
 
+> **Limitations:** Free tier sleeps after inactivity (~30s wake-up). Amazon URLs may return bot-detection pages. JavaScript-rendered SPAs not supported (addressed in Phase 3 design with Playwright workers).
 ---
 
 ## What it does
