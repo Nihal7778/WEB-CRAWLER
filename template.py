@@ -26,27 +26,27 @@ list_of_files = [
     "app/classifiers/embedding_classifier.py", # MiniLM cosine similarity vs taxonomy
     "app/classifiers/taxonomy.py",    # IAB Tier-1/2 label list
     "app/schemas.py",     # Pydantic models for unified data schema
-    "app/config.py",      # Environment variables & constants
-    "app/main.py",       # FastAPI entry point
+    "app/config.py",      
+    "app/main.py",       
     "app/utils/__init__.py",
-    "app/utils/bot_detection.py",  # Bot detection logic
-    "app/utils/logging.py",     # Custom logging setup
+    "app/utils/bot_detection.py",  
+    "app/utils/logging.py",   
     "app/extractors/__init__.py",
-    "app/extractors/trafilatura_layer.py",# Primary: title, body, author, date
-    "app/extractors/extruct_layer.py", #OG, Twitter, JSON-LD
-    "app/extractors/bs4_layer.py", #Fallback for missing meta tags
-    "app/extractors/merger.py", #Combines outputs from all layers
+    "app/extractors/trafilatura_layer.py",
+    "app/extractors/extruct_layer.py", 
+    "app/extractors/bs4_layer.py", 
+    "app/extractors/merger.py", 
     "app/orchestrator/__init__.py",
-    "app/orchestrator/extractor.py", # Metadata extraction logic
-    "app/orchestrator/classifier.py", # Classification & Topic logic
+    "app/orchestrator/extractor.py", 
+    "app/orchestrator/classifier.py", 
     "scripts/test_fetch.py",
     "scripts/save_fixtures.py",
     "scripts/test_bot_detection.py",
     "scripts/test_extractor.py",
     "scripts/test_classifier.py",
     "tests/fixtures/.gitkeep",
-    "docs/DESIGN.md",     # Part 2 requirement
-    "docs/POC_PLAN.md",   # Part 3 requirement
+    "docs/DESIGN.md",    
+    "docs/POC_PLAN.md",   
     "deploy/Dockerfile",
     ".dockerignore",
     "requirements.txt",

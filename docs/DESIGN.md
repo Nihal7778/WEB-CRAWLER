@@ -1,7 +1,6 @@
 # BrightEdge Crawler — System Design
  
 **Live Demo:** https://web-crawler-pn8j.onrender.com/docs  
-**GitHub:** https://github.com/Nihal7778/brightedge-crawler  
 **Schema Version:** 1  
 
 ---
