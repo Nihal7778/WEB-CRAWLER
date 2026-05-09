@@ -277,11 +277,8 @@ development:
 | **Claude (Anthropic)** | Architecture design, ideas generation, development assistance, documentation |
 | **Qodo** |  assisted with test validation during development,code reviews |
 
-All architectural decisions, component selection rationale, and
-tradeoff analysis were reviewed and validated by the developer.
-The classification approach (heuristic + KeyBERT + MiniLM embedding
-similarity) was chosen based on the research paper provided in the
-assignment brief on production-ready ML classification architectures.
+All architectural decisions, component selection rationale, and tradeoff analysis were reviewed and validated by the developer.
+The classification approach (heuristic + KeyBERT + MiniLM embedding similarity) was chosen based on the research paper provided in the assignment brief on production-ready ML classification architectures.
 
 ---
 

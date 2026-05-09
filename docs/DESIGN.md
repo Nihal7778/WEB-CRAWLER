@@ -42,7 +42,7 @@ inside each component.
 
 A single containerized FastAPI service handling one URL per request synchronously. Deployed on Render via Docker. No queues, no databases, no async workers — the full pipeline runs in a single request-response cycle.
 
-![Distributed Architecture](images/Distributed%20system.drawio.png)
+[Distributed System Architecture](./Distributed%20systems.drawio.png)
 
 
 ### 2.2 Component responsibilities
@@ -120,7 +120,7 @@ Read traffic is completely decoupled from the write path. The write path can be 
 
 **API Gateway + Lambda** handles cache misses. Lambda is the right choice for the read API because read traffic is bursty (not sustained), Lambda autoscales to millions of concurrent requests and there is no idle cost.
 
-**Redis (ElastiCache)** provides a sub-millisecond cache layer for URLs that are hot but not yet warmed in CloudFront. The Lambda function checks Redis before hitting DynamoDB. Cache TTL: 1 hour for successful results, 5 minutes for `status: "failed"` results.
+**DAX (DynamoDB Accelerator)** sits in front of DynamoDB providing microsecond read latency for point lookups. Replaces the Redis cache layer on the read path — DAX is the correct AWS-native answer for DynamoDB read acceleration. Redis is retained only on the write path for per-domain rate limiting and robots.txt caching.
 
 **DynamoDB** is the source of truth. Point lookups by `url_hash` return single-digit millisecond responses at any scale. No scans, no table traversals — only `GetItem` calls by primary key.
 
@@ -476,13 +476,7 @@ Unset it in production. No other code changes required.
 
 ### Implementation status
 
-LocalStack POC is planned for implementation after the public demo
-(Part 1) and design documentation (Part 2) are complete. The
-infrastructure-as-code files (`docker-compose.yml`, `init.sh`, `ingester.py`,
-`worker.py`, `lookup.py`) are scoped and ready for implementation. The
-`app/` module code (fetcher, extractor, classifier) requires zero changes
-to run against LocalStack — they are pure Python functions with no AWS
-dependency.
+LocalStack POC is planned for implementation after the public demo (Part 1) and design documentation (Part 2) are complete. The infrastructure-as-code files (`docker-compose.yml`, `init.sh`, `ingester.py`, `worker.py`, `lookup.py`) are scoped and ready for implementation. The `app/` module code (fetcher, extractor, classifier) requires zero changes to run against LocalStack — they are pure Python functions with no AWS dependency.
 
 ---
 
@@ -490,32 +484,16 @@ dependency.
 
 Ordered by implementation priority for Phase 3+:
 
-**Fine-tuned distilBERT classifier** — after 100K LLM-labeled examples,
-fine-tune distilBERT on the classification task. Replaces LLM fallback
-entirely. Expected: 98% LLM cost reduction, comparable accuracy,
-~25ms inference on CPU.
+**Fine-tuned distilBERT classifier** — after 100K LLM-labeled examples, fine-tune distilBERT on the classification task. Replaces LLM fallback entirely. Expected: 98% LLM cost reduction, comparable accuracy, ~25ms inference on CPU.
 
-**Go/Rust crawler workers** — Python's GIL limits async I/O concurrency.
-Rewriting the fetcher in Go (`colly`) or Rust (`reqwest`) achieves
-5–10x throughput per worker with 1/3 the memory footprint. Same Docker
-image contract; only the binary changes.
+**Go/Rust crawler workers** — Python's GIL limits async I/O concurrency. Rewriting the fetcher in Go (`colly`) or Rust (`reqwest`) achieves 5–10x throughput per worker with 1/3 the memory footprint. Same Docker image contract; only the binary changes.
 
-**ONNX + INT8 quantized MiniLM** — export the MiniLM model to ONNX and
-run INT8 quantization via ONNX Runtime. Expected: 3–4x inference speedup,
-75% memory reduction, negligible accuracy loss. No code changes in
-`embedding_classifier.py` — swap the model loader.
+**ONNX + INT8 quantized MiniLM** — export the MiniLM model to ONNX and run INT8 quantization via ONNX Runtime. Expected: 3–4x inference speedup, 75% memory reduction, negligible accuracy loss. No code changes in `embedding_classifier.py` — swap the model loader.
 
-**ScyllaDB over DynamoDB** — at sustained billion-row write loads, ScyllaDB
-on i4i EC2 Spot instances costs 2–3x less than DynamoDB on-demand.
-Migration path: DynamoDB Streams → Kafka → ScyllaDB dual-write during
-transition, then cut over. Application code changes limited to the
-`aws_clients.py` adapter layer.
+**ScyllaDB over DynamoDB** — at sustained billion-row write loads, ScyllaDB on i4i EC2 Spot instances costs 2–3x less than DynamoDB on-demand.
+Migration path: DynamoDB Streams → Kafka → ScyllaDB dual-write during transition, then cut over. Application code changes limited to the `aws_clients.py` adapter layer.
 
-**curl-impersonate + tiered proxies** — `curl-impersonate` matches the
-TLS fingerprint of a real Chrome browser, defeating Cloudflare and
-Akamai fingerprinting without residential proxies. Residential proxies
-reserved for the ~5% of domains that inspect TLS AND validate IP
-reputation. Expected: 80% proxy cost reduction.
+**curl-impersonate + tiered proxies** — `curl-impersonate` matches the TLS fingerprint of a real Chrome browser, defeating Cloudflare and Akamai fingerprinting without residential proxies. Residential proxies reserved for the ~5% of domains that inspect TLS AND validate IP reputation. Expected: 80% proxy cost reduction.
 
 ---
 

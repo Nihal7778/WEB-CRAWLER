@@ -33,8 +33,14 @@ The LocalStack POC (Section 5) is the bridge between Phase 0 and
 Phase 1 — it proves the distributed design works before committing
 to real cloud spend.
 
+Results:
+[POC Result 1](../docs/POC_results(1).png)
+[POC Result 2](../docs/POC_results(2).png)
+
+
 Architecture references:
-![Core Crawler Architecture](images/Core%20crawler.drawio.png)
+![Core Crawler Architecture](./Core%20crawler.drawio.png)
+
 
 ---
 
