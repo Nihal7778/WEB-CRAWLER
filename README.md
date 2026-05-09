@@ -128,6 +128,8 @@ docker compose -f localstack/docker-compose.yml down
 ---
 
 ## Project structure
+
+```text
 app/
 ├── main.py                  # FastAPI entry point
 ├── fetcher.py               # HTTP fetch with UA rotation
@@ -169,7 +171,7 @@ deploy/
 ├── Dockerfile
 └── docker-compose.yml
 
-
+```
 ---
 
 ## API reference
