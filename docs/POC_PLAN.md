@@ -35,7 +35,6 @@ to real cloud spend.
 
 Architecture references:
 ![Core Crawler Architecture](images/Core%20crawler.drawio.png)
-![Distributed Architecture](images/Distributed%20system.drawio.png)
 
 ---
 

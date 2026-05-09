@@ -41,10 +41,9 @@ inside each component.
 
 ### 2.1 Architecture
 
-A single containerized FastAPI service handling one URL per request
-synchronously. Deployed on Render via Docker. No queues, no databases,
-no async workers — the full pipeline runs in a single request-response
-cycle.
+A single containerized FastAPI service handling one URL per request synchronously. Deployed on Render via Docker. No queues, no databases, no async workers — the full pipeline runs in a single request-response cycle.
+
+![Distributed Architecture](images/Distributed%20system.drawio.png)
 
 
 ### 2.2 Component responsibilities
