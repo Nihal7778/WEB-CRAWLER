@@ -1,4 +1,4 @@
-# Web Crawler
+# Core Crawler
 
 A URL crawling and topic classification service. Accepts any URL, extracts
 structured metadata, and classifies the page into human-readable topics.
